@@ -16,7 +16,15 @@ namespace Tests
 
             List<Table> tables = excelReader.Read("Sample.xlsx").ToList();
 
-            tables.Should().HaveCount(7);
+            tables.Should()
+                .HaveCount(1)
+                .And
+                .Subject.First()
+                .Name.Should()
+                .Be("Employees");
+
+            tables.First().Columns.Should().HaveCount(3);
+            tables.First().Records.Should().HaveCount(7);
         }
     }
 }
