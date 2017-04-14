@@ -48,7 +48,7 @@ namespace ExcelToSQLScripts.Console
                             using (FileStream fileStream = File.Create(filePath))
                             {
                                 script.Content.CopyTo(fileStream);
-                                Write(" done");
+                                WriteLine(" done");
                             }
                         }
                     }
