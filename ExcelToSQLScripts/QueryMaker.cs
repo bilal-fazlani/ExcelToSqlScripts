@@ -36,7 +36,7 @@ namespace ExcelToSQLScripts
                 index++;
             }
 
-            stringBuilder.Append(");");
+            stringBuilder.Append(");\n");
 
             return stringBuilder.ToString();
         }

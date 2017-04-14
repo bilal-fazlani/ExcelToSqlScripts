@@ -31,7 +31,7 @@ namespace Tests
 
             string query = queryMaker.GenerateQuery(record);
 
-            query.Should().Be("insert into Employees (ID, Name) values (1, 'bilal');");
+            query.Should().Be("insert into Employees (ID, Name) values (1, 'bilal');\n");
         }
     }
 }
