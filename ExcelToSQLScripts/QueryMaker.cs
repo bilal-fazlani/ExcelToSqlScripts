@@ -5,7 +5,7 @@ namespace ExcelToSQLScripts
 {
     public class QueryMaker
     {
-        public string GenerateQuery(Record record)
+        public virtual string GenerateQuery(Record record)
         {
             StringBuilder stringBuilder = new StringBuilder("insert into ");
 
