@@ -25,8 +25,7 @@ namespace ExcelToSQLScripts.Models
                 case DataType.String:
                     return $"'{_value.Replace("'", "''")}'";
                 default:
-                    //todo: fix this
-                    throw new ArgumentOutOfRangeException();
+                    throw new NotImplementedException();
             }
         }
     }

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using ExcelToSQLScripts.Models;
 using OfficeOpenXml;
@@ -39,26 +38,40 @@ namespace ExcelToSQLScripts
             for (int i = 1; i <= worksheet.Dimension.Columns; i++)
             {
                 string columnName = worksheet.GetValue<string>(1, i);
-                string columnDataType = worksheet.GetValue<string>(2, i);
 
                 if (!string.IsNullOrEmpty(columnName))
                 {
-                    //todo: make this robust
-                    DataType datType = (DataType)Enum.Parse(typeof(DataType), columnDataType);
+                    DataType datType = GetDataType(worksheet, i);
                     table.Columns.Add(new Column(columnName, datType, i));
                 }
             }
         }
 
+        private DataType GetDataType(ExcelWorksheet worksheet, int columnIndex)
+        {
+            string firstDataValue = worksheet.GetValue<string>(2, columnIndex);
+            bool isnumber = IsNumber(firstDataValue);
+
+            if(isnumber)
+                return DataType.Number;
+            return DataType.String;
+        }
+
+        private bool IsNumber(string value)
+        {
+            double number;
+            return double.TryParse(value, out number);
+        }
+
         private void FillRecords(ExcelWorksheet worksheet, Table table)
         {
-            for (int excelRowIndex = 3; excelRowIndex <= worksheet.Dimension.Rows; excelRowIndex++)
+            for (int excelRowIndex = 2; excelRowIndex <= worksheet.Dimension.Rows; excelRowIndex++)
             {
                 Record record = new Record(table);
 
                 foreach (var column in table.Columns)
                 {
-                    record[excelRowIndex - 3] = new Value(column, worksheet.GetValue<string>(excelRowIndex, column.Index));
+                    record[excelRowIndex - 2] = new Value(column, worksheet.GetValue<string>(excelRowIndex, column.Index));
                 }
 
                 if(_insertEmptyRecords || !record.IsEmpty) table.Records.Add(record);
