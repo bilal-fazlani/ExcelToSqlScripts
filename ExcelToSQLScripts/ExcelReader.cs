@@ -47,7 +47,7 @@ namespace ExcelToSQLScripts
         {
             for (int excelRowIndex = 3; excelRowIndex <= worksheet.Dimension.Rows; excelRowIndex++)
             {
-                Record record = new Record();
+                Record record = new Record(table);
 
                 foreach (var column in table.Columns)
                 {

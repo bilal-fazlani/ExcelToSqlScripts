@@ -5,12 +5,14 @@ namespace ExcelToSQLScripts.Models
 {
     public class Record
     {
-        public List<Value> Values { get; set; } = new List<Value>();
+        public Table Table { get; }
 
-        public Value this[string columnName]
+        public Record(Table table)
         {
-            get { return Values.SingleOrDefault(x => x.Column.Name == columnName); }
+            Table = table;
         }
+
+        public List<Value> Values { get; set; } = new List<Value>();
 
         public Value this[int columnIndex]
         {
