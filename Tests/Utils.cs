@@ -4,7 +4,7 @@ namespace Tests
 {
     public static class Utils
     {
-        public static Table GetTable(int length = 1)
+        public static Table GetTable(int length = 1, string name = "bilal")
         {
             Table table = new Table("Employees");
 
@@ -19,7 +19,7 @@ namespace Tests
                 Record record = new Record(table)
                 {
                     [0] = new Value(idColumn, $"{i+1}"),
-                    [1] = new Value(nameColumn, "bilal")
+                    [1] = new Value(nameColumn, name)
                 };
 
                 table.Records.Add(record);

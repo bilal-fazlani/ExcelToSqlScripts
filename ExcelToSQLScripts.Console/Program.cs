@@ -13,18 +13,20 @@ namespace ExcelToSQLScripts.Console
         {
             var app = new CommandLineApplication();
 
-            //give people help with --help
             app.HelpOption("-? | -h | --help");
 
-            var inputArguement = app.Argument("inputFile", "Full path of excel file. File must have .xlsx extension.");
-            var outputArguement = app.Argument("outputDirectory", "Path the the directory where all sql files will be stored. " +
+            var inputOption = app.Option("-i | --inputFile", "Full path of excel file. File must have .xlsx extension.", CommandOptionType.SingleValue);
+
+            var outputOption = app.Option("-o | --outputDirectory", "Path the the directory where all sql files will be stored. " +
                                                                   "If one or more files exist with same name, they will be overriden. " +
-                                                                  "If output directory doesn't exist, it will be created.");
+                                                                  "If output directory doesn't exist, it will be created.", CommandOptionType.SingleValue);
 
             app.OnExecute(() =>
             {
-                string inputPath = inputArguement.Value ?? GetInput("Enter excel file path: ").Replace("\"", "");
-                string outputPath =outputArguement.Value ?? GetInput("Enter output directory path: ").Replace("\"", "");
+                string inputPath = inputOption.Value() ?? GetInput("Enter excel file path: ").Replace("\"", "");
+                string outputPath =outputOption.Value() ?? GetInput("Enter output directory path: ").Replace("\"", "");
+
+                Directory.CreateDirectory(outputPath);
 
                 TableScriptGenerator tableScriptGenerator = new TableScriptGenerator(new QueryMaker());
 
@@ -52,9 +54,14 @@ namespace ExcelToSQLScripts.Console
                     WriteLine($"file not found:  {ex.FileName}");
                     return 1;
                 }
+                catch (Exception ex)
+                {
+                    WriteLine($"Error: {ex.Message}");
+                    return 1;
+                }
             });
 
-            var result = app.Execute(args);
+            int result = app.Execute(args);
             Environment.Exit(result);
         }
 

@@ -34,10 +34,9 @@ namespace ExcelToSQLScripts
                 string columnName = worksheet.GetValue<string>(1, i);
                 string columnDataType = worksheet.GetValue<string>(2, i);
 
-                DataType datType = (DataType)Enum.Parse(typeof(DataType), columnDataType);
-
                 if (!string.IsNullOrEmpty(columnName))
                 {
+                    DataType datType = (DataType)Enum.Parse(typeof(DataType), columnDataType);
                     table.Columns.Add(new Column(columnName, datType, i));
                 }
             }
@@ -54,7 +53,10 @@ namespace ExcelToSQLScripts
                     record[excelRowIndex - 3] = new Value(column, worksheet.GetValue<string>(excelRowIndex, column.Index));
                 }
 
-                table.Records.Add(record);
+                if (!record.Values.TrueForAll(x => x.GetStringValue() == Constants.NULL))
+                {
+                    table.Records.Add(record);
+                }
             }
         }
     }

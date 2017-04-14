@@ -25,11 +25,7 @@ namespace ExcelToSQLScripts
 
             foreach (var value in record.Values)
             {
-                if (value.Column.DataType == DataType.String) stringBuilder.Append("'");
-
-                stringBuilder.Append(value.StringValue);
-
-                if (value.Column.DataType == DataType.String) stringBuilder.Append("'");
+                stringBuilder.Append(value.GetStringValue());
 
                 if (index < record.Values.Count-1) stringBuilder.Append(", ");
 
