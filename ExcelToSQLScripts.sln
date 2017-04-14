@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExcelToSQLScripts", "ExcelT
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests\Tests.csproj", "{3A6E657C-1525-4EE0-8C8D-BF698FE9850D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExcelToSQLScripts.Console", "ExcelToSQLScripts.Console\ExcelToSQLScripts.Console.csproj", "{71E3BE96-93A2-4917-969B-CE2BAF01B8B1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{3A6E657C-1525-4EE0-8C8D-BF698FE9850D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3A6E657C-1525-4EE0-8C8D-BF698FE9850D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3A6E657C-1525-4EE0-8C8D-BF698FE9850D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{71E3BE96-93A2-4917-969B-CE2BAF01B8B1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{71E3BE96-93A2-4917-969B-CE2BAF01B8B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{71E3BE96-93A2-4917-969B-CE2BAF01B8B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{71E3BE96-93A2-4917-969B-CE2BAF01B8B1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
