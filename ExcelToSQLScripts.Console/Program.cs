@@ -30,24 +30,26 @@ namespace ExcelToSQLScripts.Console
                 string outputPath = outputOption.Value() ?? GetInput("Enter output directory path: ").Replace("\"", "");
                 bool insertEmptyRecords = nullRecordOption.HasValue() && nullRecordOption.Value() == "on";
 
-                Directory.CreateDirectory(outputPath);
-
-                TableScriptGenerator tableScriptGenerator = new TableScriptGenerator(new QueryMaker());
-
-                ExcelReader excelReader = new ExcelReader(insertEmptyRecords);
-
                 try
                 {
+                    Directory.CreateDirectory(outputPath);
+
+                    ExcelReader excelReader = new ExcelReader(insertEmptyRecords);
+                
+                    TableScriptGenerator tableScriptGenerator = new TableScriptGenerator(new QueryMaker());
+
                     IEnumerable<Table> tables = excelReader.Read(inputPath);
                     foreach (Table table in tables)
                     {
-                        WriteLine($"{table.Name}.sql...");
-
+                        string filePath = Path.Combine(outputPath, table.Name + ".sql");
+                        Write($"Writing {filePath}...");
                         using (Script script = tableScriptGenerator.GenerateTableScript(table))
-                        using (FileStream fileStream = File.Create(Path.Combine(outputPath, script.Name + ".sql")))
                         {
-                            script.Content.CopyTo(fileStream);
-                            Write(" done");
+                            using (FileStream fileStream = File.Create(filePath))
+                            {
+                                script.Content.CopyTo(fileStream);
+                                Write(" done");
+                            }
                         }
                     }
 
