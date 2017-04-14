@@ -27,43 +27,34 @@ namespace ExcelToSQLScripts
             }
         }
 
-        private void FillRecords(ExcelWorksheet worksheet, Table table)
-        {
-            for (int excelRowIndex = 2; excelRowIndex < worksheet.Dimension.Rows; excelRowIndex++)
-            {
-                Record record = new Record();
-
-                foreach (var column in table.Columns)
-                {
-                    record[excelRowIndex-2] = new Value(column, worksheet.GetValue<string>(excelRowIndex, column.Index));
-                }
-
-                table.Records.Add(record);
-            }
-        }
-
         private void FillColumns(ExcelWorksheet worksheet, Table table)
         {
-            bool over = false;
-            int index = 0;
-
-            while (!over)
+            for (int i = 1; i <= worksheet.Dimension.Columns; i++)
             {
-                string columnName = worksheet.GetValue<string>(0, index);
-                string columnDataType = worksheet.GetValue<string>(1, index);
+                string columnName = worksheet.GetValue<string>(1, i);
+                string columnDataType = worksheet.GetValue<string>(2, i);
 
                 DataType datType = (DataType)Enum.Parse(typeof(DataType), columnDataType);
 
                 if (!string.IsNullOrEmpty(columnName))
                 {
-                    table.Columns.Add(new Column(columnName, datType, index));
+                    table.Columns.Add(new Column(columnName, datType, i));
                 }
-                else
+            }
+        }
+
+        private void FillRecords(ExcelWorksheet worksheet, Table table)
+        {
+            for (int excelRowIndex = 3; excelRowIndex <= worksheet.Dimension.Rows; excelRowIndex++)
+            {
+                Record record = new Record();
+
+                foreach (var column in table.Columns)
                 {
-                    over = true;
+                    record[excelRowIndex - 3] = new Value(column, worksheet.GetValue<string>(excelRowIndex, column.Index));
                 }
 
-                index++;
+                table.Records.Add(record);
             }
         }
     }

@@ -15,7 +15,7 @@ namespace ExcelToSQLScripts.Models
         public Value this[int columnIndex]
         {
             get => Values[columnIndex];
-            set => Values[columnIndex] = value;
+            set => Values.Add(value);
         }
     }
 }
