@@ -8,6 +8,13 @@ namespace ExcelToSQLScripts
 {
     public class ExcelReader
     {
+        private readonly bool _insertEmptyRecords;
+
+        public ExcelReader(bool insertEmptyRecords)
+        {
+            _insertEmptyRecords = insertEmptyRecords;
+        }
+
         public IEnumerable<Table> Read(string filePath)
         {
             using (FileStream fileStream = new FileStream(filePath, FileMode.Open))
@@ -36,6 +43,7 @@ namespace ExcelToSQLScripts
 
                 if (!string.IsNullOrEmpty(columnName))
                 {
+                    //todo: make this robust
                     DataType datType = (DataType)Enum.Parse(typeof(DataType), columnDataType);
                     table.Columns.Add(new Column(columnName, datType, i));
                 }
@@ -53,10 +61,7 @@ namespace ExcelToSQLScripts
                     record[excelRowIndex - 3] = new Value(column, worksheet.GetValue<string>(excelRowIndex, column.Index));
                 }
 
-                if (!record.Values.TrueForAll(x => x.GetStringValue() == Constants.NULL))
-                {
-                    table.Records.Add(record);
-                }
+                if(_insertEmptyRecords || !record.IsEmpty) table.Records.Add(record);
             }
         }
     }

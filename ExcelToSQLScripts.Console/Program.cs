@@ -21,16 +21,20 @@ namespace ExcelToSQLScripts.Console
                                                                   "If one or more files exist with same name, they will be overriden. " +
                                                                   "If output directory doesn't exist, it will be created.", CommandOptionType.SingleValue);
 
+            var nullRecordOption = app.Option("-e | --insertEmptyRecords",
+                "Will insert NULLs in all fields for empty rows in excel sheet", CommandOptionType.NoValue);
+
             app.OnExecute(() =>
             {
                 string inputPath = inputOption.Value() ?? GetInput("Enter excel file path: ").Replace("\"", "");
-                string outputPath =outputOption.Value() ?? GetInput("Enter output directory path: ").Replace("\"", "");
+                string outputPath = outputOption.Value() ?? GetInput("Enter output directory path: ").Replace("\"", "");
+                bool insertEmptyRecords = nullRecordOption.HasValue() && nullRecordOption.Value() == "on";
 
                 Directory.CreateDirectory(outputPath);
 
                 TableScriptGenerator tableScriptGenerator = new TableScriptGenerator(new QueryMaker());
 
-                ExcelReader excelReader = new ExcelReader();
+                ExcelReader excelReader = new ExcelReader(insertEmptyRecords);
 
                 try
                 {

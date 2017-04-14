@@ -18,5 +18,7 @@ namespace ExcelToSQLScripts.Models
             get => Values[columnIndex];
             set => Values.Add(value);
         }
+
+        public bool IsEmpty => Values.TrueForAll(x => x.GetStringValue() == Constants.NULL);
     }
 }

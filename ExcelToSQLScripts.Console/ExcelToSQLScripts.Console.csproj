@@ -13,4 +13,8 @@
     <ProjectReference Include="..\ExcelToSQLScripts\ExcelToSQLScripts.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Properties\" />
+  </ItemGroup>
+
 </Project>
