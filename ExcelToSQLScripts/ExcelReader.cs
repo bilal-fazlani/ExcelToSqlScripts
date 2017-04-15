@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using ExcelToSQLScripts.Models;
 using OfficeOpenXml;
 
@@ -7,11 +8,13 @@ namespace ExcelToSQLScripts
 {
     public class ExcelReader
     {
-        private readonly bool _insertEmptyRecords;
+        private readonly bool _readEmptyRecords;
+        private readonly int[] _worksheetsToRead;
 
-        public ExcelReader(bool insertEmptyRecords)
+        public ExcelReader(bool readEmptyRecords, int[] worksheetsToRead)
         {
-            _insertEmptyRecords = insertEmptyRecords;
+            _readEmptyRecords = readEmptyRecords;
+            _worksheetsToRead = worksheetsToRead;
         }
 
         public IEnumerable<Table> Read(string filePath)
@@ -20,15 +23,20 @@ namespace ExcelToSQLScripts
             {
                 ExcelPackage excel = new ExcelPackage(fileStream);
 
-                foreach(var worksheet in excel.Workbook.Worksheets)
+                foreach (var worksheet in excel.Workbook.Worksheets)
                 {
-                    Table table = new Table(worksheet.Name);
+                    if (_worksheetsToRead == null || 
+                        _worksheetsToRead?.Length == 0 || 
+                        (_worksheetsToRead != null && _worksheetsToRead.Contains(worksheet.Index)))
+                    {
+                        Table table = new Table(worksheet.Name);
 
-                    FillColumns(worksheet, table);
+                        FillColumns(worksheet, table);
 
-                    FillRecords(worksheet, table);
+                        FillRecords(worksheet, table);
 
-                    yield return table;
+                        yield return table;
+                    }
                 }
             }
         }
@@ -74,7 +82,7 @@ namespace ExcelToSQLScripts
                     record[excelRowIndex - 2] = new Value(column, worksheet.GetValue<string>(excelRowIndex, column.Index));
                 }
 
-                if(_insertEmptyRecords || !record.IsEmpty) table.Records.Add(record);
+                if(_readEmptyRecords || !record.IsEmpty) table.Records.Add(record);
             }
         }
     }

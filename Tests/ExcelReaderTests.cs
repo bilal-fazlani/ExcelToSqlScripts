@@ -12,7 +12,7 @@ namespace Tests
         [Fact]
         public void CanReadExcelFile()
         {
-            ExcelReader excelReader = new ExcelReader(false);
+            ExcelReader excelReader = new ExcelReader(false, null);
 
             List<Table> tables = excelReader.Read("Sample.xlsx").ToList();
 
@@ -30,7 +30,7 @@ namespace Tests
         [Fact]
         public void CanReadExcelFileWithEmptyRecords()
         {
-            ExcelReader excelReader = new ExcelReader(true);
+            ExcelReader excelReader = new ExcelReader(true, null);
 
             List<Table> tables = excelReader.Read("Sample.xlsx").ToList();
 
@@ -43,6 +43,17 @@ namespace Tests
 
             tables.First().Columns.Should().HaveCount(3);
             tables.First().Records.Should().HaveCount(10);
+        }
+        [Fact]
+
+        public void CanReadExcelFileWithWorksheetFilter()
+        {
+            ExcelReader excelReader = new ExcelReader(true, new[]{3});
+
+            List<Table> tables = excelReader.Read("Sample.xlsx").ToList();
+
+            tables.Should()
+                .HaveCount(0);
         }
     }
 }
