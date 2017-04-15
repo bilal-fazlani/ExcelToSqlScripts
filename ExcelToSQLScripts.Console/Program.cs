@@ -31,17 +31,20 @@ namespace ExcelToSQLScripts.Console
 
             app.OnExecute(() =>
             {
-                string inputPath = inputOption.Value() ?? GetInput("Enter excel file path: ").Replace("\"", "");
-                string outputPath = outputOption.Value() ?? GetInput("Enter output directory path: ").Replace("\"", "");
-                bool readEmptyRecords = nullRecordOption.HasValue() && nullRecordOption.Value() == "on";
-                int[] worksheetsToRead = workSheetsOption.Values?.Select(int.Parse).ToArray();
-
                 try
                 {
+                    string inputPath = inputOption.Value() ??
+                                       throw new ArgumentNullException("inputFile",
+                                           "Please provide a path to excel file");
+                    string outputPath = outputOption.Value() ?? throw new ArgumentNullException("outputDirectory",
+                                            "Please provide a directory for saving sql scripts");
+                    bool readEmptyRecords = nullRecordOption.HasValue() && nullRecordOption.Value() == "on";
+                    int[] worksheetsToRead = workSheetsOption.Values?.Select(int.Parse).ToArray();
+
                     Directory.CreateDirectory(outputPath);
 
                     ExcelReader excelReader = new ExcelReader(readEmptyRecords, worksheetsToRead);
-                
+
                     TableScriptGenerator tableScriptGenerator = new TableScriptGenerator(new QueryMaker());
 
                     IEnumerable<Table> tables = excelReader.Read(inputPath);
@@ -86,13 +89,6 @@ namespace ExcelToSQLScripts.Console
                 Environment.Exit(1);
             }
             
-        }
-
-        private static string GetInput(string text)
-        {
-            Write(text);
-            string path = ReadLine();
-            return string.IsNullOrEmpty(path) ? GetInput(text) : path;
         }
     }
 }
