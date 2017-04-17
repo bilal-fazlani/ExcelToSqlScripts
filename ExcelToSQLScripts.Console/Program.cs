@@ -53,26 +53,36 @@ namespace ExcelToSQLScripts.Console
                     {
                         string filePath = Path.Combine(outputPath, table.Name + ".sql");
                         Write($"writing {filePath} ...");
-                        using (Script script = tableScriptGenerator.GenerateTableScript(table))
+
+                        if (table.Records.Any())
                         {
-                            using (FileStream fileStream = File.Create(filePath))
+                            using (Script script = tableScriptGenerator.GenerateTableScript(table))
                             {
-                                script.Content.CopyTo(fileStream);
-                                WriteLine(" done");
+                                using (FileStream fileStream = File.Create(filePath))
+                                {
+                                    script.Content.CopyTo(fileStream);
+                                    WriteLine(" done");
+                                }
                             }
                         }
+                        else
+                        {
+                            WriteLine(" empty (skipped)");
+                        }
+
                     }
 
                     return 0;
                 }
                 catch (FileNotFoundException ex)
                 {
-                    WriteLine($"file not found:  {ex.FileName}");
+                    Error.WriteLine($"file not found:  {ex.FileName}");
                     return 1;
                 }
                 catch (Exception ex)
                 {
-                    WriteLine($"Error: {ex.Message}");
+                    Error.WriteLine($"Error: {ex.Message}");
+                    Error.WriteLine(ex.StackTrace);
                     return 1;
                 }
             });

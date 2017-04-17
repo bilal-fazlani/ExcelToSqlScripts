@@ -43,7 +43,7 @@ namespace ExcelToSQLScripts
 
         private void FillColumns(ExcelWorksheet worksheet, Table table)
         {
-            for (int i = 1; i <= worksheet.Dimension.Columns; i++)
+            for (int i = 1; i <= worksheet?.Dimension?.Columns; i++)
             {
                 string columnName = worksheet.GetValue<string>(1, i);
 
@@ -73,7 +73,7 @@ namespace ExcelToSQLScripts
 
         private void FillRecords(ExcelWorksheet worksheet, Table table)
         {
-            for (int excelRowIndex = 2; excelRowIndex <= worksheet.Dimension.Rows; excelRowIndex++)
+            for (int excelRowIndex = 2; excelRowIndex <= worksheet?.Dimension?.Rows; excelRowIndex++)
             {
                 Record record = new Record(table);
 
