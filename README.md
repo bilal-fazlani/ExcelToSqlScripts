@@ -1,4 +1,4 @@
-# ExcelToSqlScripts
+# Setup instructions
 
 This small command line tool to help you convert data of excel files into insert statements in SQL syntax.
 
@@ -8,7 +8,7 @@ This small command line tool to help you convert data of excel files into insert
 4. Run `dotnet ExcelToSQLScripts.Console.dll -- help`
 
 
-## Converting a Excel (.xlsx) file in sql scripts
+# Generating SQL scripts
 
 ```
 dotnet ExcelToSQLScripts.Console.dll -i <PATH_TO_XLSX_FILE> -o <OUTPUT_DIRECTORY_FOR_SQL_FILES>
