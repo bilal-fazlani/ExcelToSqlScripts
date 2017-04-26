@@ -74,6 +74,12 @@ namespace ExcelToSQLScripts.Console
 
                     return 0;
                 }
+                catch (ArgumentNullException ex)
+                {
+                    Error.WriteLine($"Error: {ex.Message}");
+                    app.ShowHelp();
+                    return 1;
+                }
                 catch (FileNotFoundException ex)
                 {
                     Error.WriteLine($"file not found:  {ex.FileName}");
