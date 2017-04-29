@@ -3,6 +3,7 @@ using ExcelToSQLScripts;
 using ExcelToSQLScripts.Models;
 using FluentAssertions;
 using NSubstitute;
+using NSubstitute.Core;
 using Xunit;
 
 namespace Tests
@@ -12,7 +13,8 @@ namespace Tests
         [Fact]
         public void CanGenerateScripts()
         {
-            QueryMaker queryMakerSubstitute = Substitute.For<QueryMaker>();
+            ValueRenderer valueRendererSubstitute = Substitute.For<ValueRenderer>();
+            QueryMaker queryMakerSubstitute = Substitute.For<QueryMaker>(valueRendererSubstitute);
 
             queryMakerSubstitute.GenerateQuery(Arg.Any<ExcelToSQLScripts.Models.Record>()).Returns("random string\n");
 

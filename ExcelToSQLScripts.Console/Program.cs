@@ -29,6 +29,10 @@ namespace ExcelToSQLScripts.Console
                 "Index of worksheets to be processed. Index beings from 1. This option can be used multiple times in one command.",
                 CommandOptionType.MultipleValue);
 
+            CommandOption replacementOption = app.Option("-r | --replaceWithNULL",
+                "Replace the given text with null values in script. This option can be used multiple times in one command.",
+                CommandOptionType.MultipleValue);
+
             app.OnExecute(() =>
             {
                 try
@@ -39,13 +43,16 @@ namespace ExcelToSQLScripts.Console
                     string outputPath = outputOption.Value() ?? throw new ArgumentNullException("outputDirectory",
                                             "Please provide a directory for saving sql scripts");
                     bool readEmptyRecords = nullRecordOption.HasValue() && nullRecordOption.Value() == "on";
+
                     int[] worksheetsToRead = workSheetsOption.Values?.Select(int.Parse).ToArray();
+
+                    string[] nullReplacements = replacementOption.Values?.ToArray();
 
                     Directory.CreateDirectory(outputPath);
 
                     ExcelReader excelReader = new ExcelReader(readEmptyRecords, worksheetsToRead);
 
-                    TableScriptGenerator tableScriptGenerator = new TableScriptGenerator(new QueryMaker());
+                    TableScriptGenerator tableScriptGenerator = new TableScriptGenerator(new QueryMaker(new ValueRenderer(nullReplacements)));
 
                     IEnumerable<Table> tables = excelReader.Read(inputPath);
 

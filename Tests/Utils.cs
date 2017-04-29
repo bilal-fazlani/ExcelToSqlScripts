@@ -8,8 +8,8 @@ namespace Tests
         {
             Table table = new Table("Employees");
 
-            var idColumn = new Column("ID", DataType.Number, 1);
-            var nameColumn = new Column("Name", DataType.String, 2);
+            Column idColumn = new Column("ID", DataType.Number, 1);
+            Column nameColumn = new Column("Name", DataType.String, 2);
 
             table.Columns.Add(idColumn);
             table.Columns.Add(nameColumn);

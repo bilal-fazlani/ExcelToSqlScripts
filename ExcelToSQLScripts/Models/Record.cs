@@ -19,6 +19,6 @@ namespace ExcelToSQLScripts.Models
             set => Values.Add(value);
         }
 
-        public bool IsEmpty => Values.TrueForAll(x => x.GetStringValue() == Constants.NULL);
+        public bool IsEmpty => Values.TrueForAll(x => string.IsNullOrEmpty(x.StringValue));
     }
 }

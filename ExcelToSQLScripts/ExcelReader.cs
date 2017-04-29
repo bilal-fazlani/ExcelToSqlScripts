@@ -67,8 +67,7 @@ namespace ExcelToSQLScripts
 
         private bool IsNumber(string value)
         {
-            double number;
-            return double.TryParse(value, out number);
+            return double.TryParse(value, out double _);
         }
 
         private void FillRecords(ExcelWorksheet worksheet, Table table)
