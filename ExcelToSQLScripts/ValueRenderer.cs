@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Linq;
+using ExcelToSQLScripts.Models;
 
-namespace ExcelToSQLScripts.Models
+namespace ExcelToSQLScripts
 {
     public class ValueRenderer
     {
