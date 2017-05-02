@@ -15,3 +15,11 @@ This small command line tool to help you convert data of excel files into insert
 ```
 dotnet ExcelToSQLScripts.Console.dll -i <PATH_TO_XLSX_FILE> -o <OUTPUT_DIRECTORY_FOR_SQL_FILES>
 ```
+
+# Sample Input
+
+![Excel](/Readme/Excel.png "Excel")
+
+# Sample Output
+
+![Excel](/Readme/SQL.png "SQL")
