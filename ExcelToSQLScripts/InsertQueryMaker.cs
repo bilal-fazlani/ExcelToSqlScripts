@@ -3,11 +3,11 @@ using ExcelToSQLScripts.Models;
 
 namespace ExcelToSQLScripts
 {
-    public class QueryMaker
+    public class InsertQueryMaker : IQueryMaker
     {
         private readonly ValueRenderer _valueRenderer;
 
-        public QueryMaker(ValueRenderer valueRenderer)
+        public InsertQueryMaker(ValueRenderer valueRenderer)
         {
             _valueRenderer = valueRenderer;
         }

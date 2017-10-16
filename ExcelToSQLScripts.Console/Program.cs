@@ -52,7 +52,7 @@ namespace ExcelToSQLScripts.Console
 
                     ExcelReader excelReader = new ExcelReader(readEmptyRecords, worksheetsToRead);
 
-                    TableScriptGenerator tableScriptGenerator = new TableScriptGenerator(new QueryMaker(new ValueRenderer(nullReplacements)));
+                    TableScriptGenerator tableScriptGenerator = new TableScriptGenerator(new InsertQueryMaker(new ValueRenderer(nullReplacements)));
 
                     IEnumerable<Table> tables = excelReader.Read(inputPath);
 

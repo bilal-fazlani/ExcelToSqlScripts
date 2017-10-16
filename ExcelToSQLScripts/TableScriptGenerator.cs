@@ -6,9 +6,9 @@ namespace ExcelToSQLScripts
 {
     public class TableScriptGenerator
     {
-        readonly QueryMaker _queryMaker;
+        readonly IQueryMaker _queryMaker;
 
-        public TableScriptGenerator(QueryMaker queryMaker)
+        public TableScriptGenerator(IQueryMaker queryMaker)
         {
             _queryMaker = queryMaker;
         }

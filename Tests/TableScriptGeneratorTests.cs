@@ -13,8 +13,7 @@ namespace Tests
         [Fact]
         public void CanGenerateScripts()
         {
-            ValueRenderer valueRendererSubstitute = Substitute.For<ValueRenderer>();
-            QueryMaker queryMakerSubstitute = Substitute.For<QueryMaker>(valueRendererSubstitute);
+            IQueryMaker queryMakerSubstitute = Substitute.For<IQueryMaker>();
 
             queryMakerSubstitute.GenerateQuery(Arg.Any<ExcelToSQLScripts.Models.Record>()).Returns("random string\n");
 

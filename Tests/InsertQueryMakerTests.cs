@@ -1,4 +1,4 @@
-using ExcelToSQLScripts;
+﻿using ExcelToSQLScripts;
 using ExcelToSQLScripts.Models;
 using FluentAssertions;
 using Xunit;
@@ -11,7 +11,7 @@ namespace Tests
         [Fact]
         public void CanMakeQuery()
         {
-            QueryMaker queryMaker = new QueryMaker(new ValueRenderer(new string[]{ }));
+            InsertQueryMaker queryMaker = new InsertQueryMaker(new ValueRenderer(new string[]{ }));
 
             Record record = Utils.GetTable().Records[0];
 
@@ -23,7 +23,7 @@ namespace Tests
         [Fact]
         public void CanReplaceSingleQuoteWithDoubleQuote()
         {
-            QueryMaker queryMaker = new QueryMaker(new ValueRenderer(new string[] { }));
+            InsertQueryMaker queryMaker = new InsertQueryMaker(new ValueRenderer(new string[] { }));
 
             Record record = Utils.GetTable(name:"sky's blue").Records[0];
 
@@ -35,7 +35,7 @@ namespace Tests
         [Fact]
         public void CanReplaceNullReplacementsWithNulls()
         {
-            QueryMaker queryMaker = new QueryMaker(new ValueRenderer(new [] { "n/a" }));
+            InsertQueryMaker queryMaker = new InsertQueryMaker(new ValueRenderer(new [] { "n/a" }));
 
             Record record = Utils.GetTable(name: "N/A").Records[0];
 
