@@ -4,6 +4,7 @@
 
 .vs
 .idea
+*.userprefs
 bin
 obj
 
