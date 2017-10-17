@@ -34,6 +34,10 @@ namespace ExcelToSQLScripts.Console
                 "Replace the given text with null values in script. This option can be used multiple times in one command.",
                 CommandOptionType.MultipleValue);
 
+            CommandOption modeOption = app.Option("-m | --mode",
+                "Specify the mode. Possible values are : insert & merge. Default mode is insert",
+                CommandOptionType.SingleValue);
+
             app.OnExecute(() =>
             {
                 try
@@ -45,6 +49,8 @@ namespace ExcelToSQLScripts.Console
                                             "Please provide a directory for saving sql scripts");
                     bool readEmptyRecords = nullRecordOption.HasValue() && nullRecordOption.Value() == "on";
 
+                    string mode = modeOption.HasValue() ? modeOption.Value() : "insert";
+
                     int[] worksheetsToRead = workSheetsOption.Values?.Select(int.Parse).ToArray();
 
                     string[] nullReplacements = replacementOption.Values?.ToArray();
@@ -53,7 +59,11 @@ namespace ExcelToSQLScripts.Console
 
                     ExcelReader excelReader = new ExcelReader(readEmptyRecords, worksheetsToRead);
 
-                    TableScriptGenerator tableScriptGenerator = new TableScriptGenerator(new InsertQueryMaker(new ValueRenderer(nullReplacements)));
+                    ValueRenderer valueRenderer = new ValueRenderer(nullReplacements);
+
+                    IQueryMaker queryMaker = QueryMakerFactory.Create(mode, valueRenderer);
+
+                    TableScriptGenerator tableScriptGenerator = new TableScriptGenerator(queryMaker);
 
                     IEnumerable<Table> tables = excelReader.Read(inputPath);
 
@@ -88,6 +98,12 @@ namespace ExcelToSQLScripts.Console
                     app.ShowHelp();
                     return 1;
                 }
+                catch (ArgumentException ex)
+                {
+                    Error.WriteLine($"Error: {ex.Message}");
+                    app.ShowHelp();
+                    return 1;
+                }
                 catch (FileNotFoundException ex)
                 {
                     Error.WriteLine($"file not found:  {ex.FileName}");
@@ -112,7 +128,6 @@ namespace ExcelToSQLScripts.Console
                 app.ShowHelp();
                 Environment.Exit(1);
             }
-            
         }
     }
 }
