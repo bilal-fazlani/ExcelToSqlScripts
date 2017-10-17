@@ -1,7 +1,7 @@
 ﻿using System;
 using ExcelToSQLScripts.Models;
 
-namespace ExcelToSQLScripts
+namespace ExcelToSQLScripts.QueryMakers
 {
     public interface IQueryMaker
     {

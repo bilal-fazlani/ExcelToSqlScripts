@@ -1,6 +1,7 @@
 ﻿using System.IO;
 using System.Text;
 using ExcelToSQLScripts.Models;
+using ExcelToSQLScripts.QueryMakers;
 
 namespace ExcelToSQLScripts
 {

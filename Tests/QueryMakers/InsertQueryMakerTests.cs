@@ -1,10 +1,11 @@
 ﻿using ExcelToSQLScripts;
 using ExcelToSQLScripts.Models;
+using ExcelToSQLScripts.QueryMakers;
 using FluentAssertions;
 using Xunit;
 using Record = ExcelToSQLScripts.Models.Record;
 
-namespace Tests
+namespace Tests.QueryMakers
 {
     public class QueryMakerTests
     {

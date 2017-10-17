@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using ExcelToSQLScripts.Models;
+using ExcelToSQLScripts.QueryMakers;
 using Microsoft.Extensions.CommandLineUtils;
 using static System.Console;
 

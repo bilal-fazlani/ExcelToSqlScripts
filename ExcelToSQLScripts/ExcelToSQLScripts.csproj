@@ -8,4 +8,7 @@
     <PackageReference Include="EPPlus.Core" Version="1.5.2" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="QueryMakers\" />
+  </ItemGroup>
 </Project>

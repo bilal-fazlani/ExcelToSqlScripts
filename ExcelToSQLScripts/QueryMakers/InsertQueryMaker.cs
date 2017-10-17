@@ -1,23 +1,22 @@
-﻿using System;
-using System.Text;
+﻿using System.Text;
 using ExcelToSQLScripts.Models;
 
-namespace ExcelToSQLScripts
+namespace ExcelToSQLScripts.QueryMakers
 {
-    public class H2MergeQueryMaker : IQueryMaker
+    public class InsertQueryMaker : IQueryMaker
     {
-        readonly ValueRenderer _valueRenderer;
+        private readonly ValueRenderer _valueRenderer;
 
-        public H2MergeQueryMaker(ValueRenderer valueRenderer)
+        public InsertQueryMaker(ValueRenderer valueRenderer)
         {
             _valueRenderer = valueRenderer;
         }
 
-        public string GenerateQuery(Record record)
+        public virtual string GenerateQuery(Record record)
         {
-            StringBuilder stringBuilder = new StringBuilder("MERGE INTO ");
-            stringBuilder.Append(record.Table.Name.ToUpperInvariant() + " (");
+            StringBuilder stringBuilder = new StringBuilder("INSERT INTO ");
 
+            stringBuilder.Append(record.Table.Name.ToUpperInvariant() + " (");
 
             foreach (Column column in record.Table.Columns)
             {
@@ -27,10 +26,7 @@ namespace ExcelToSQLScripts
                     stringBuilder.Append(", ");
                 }
             }
-
-            string keyName = record.Table.Columns[0].Name.ToUpperInvariant();
-
-            stringBuilder.Append($") KEY ({keyName}) VALUES (");
+            stringBuilder.Append(") VALUES (");
 
             int index = 0;
 
@@ -38,7 +34,7 @@ namespace ExcelToSQLScripts
             {
                 stringBuilder.Append(_valueRenderer.Render(value));
 
-                if (index < record.Values.Count - 1) stringBuilder.Append(", ");
+                if (index < record.Values.Count-1) stringBuilder.Append(", ");
 
                 index++;
             }

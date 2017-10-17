@@ -1,6 +1,7 @@
 ﻿using System.IO;
 using ExcelToSQLScripts;
 using ExcelToSQLScripts.Models;
+using ExcelToSQLScripts.QueryMakers;
 using FluentAssertions;
 using NSubstitute;
 using NSubstitute.Core;
