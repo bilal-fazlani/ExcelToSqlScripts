@@ -10,15 +10,15 @@ namespace ExcelToSQLScripts.Models
             Name = name;
         }
 
-        public string Name { get; set; }
+        public string Name { get; }
 
         public List<Column> Columns { get; set; } = new List<Column>();
 
         public List<Record> Records { get; set; } = new List<Record>();
 
-        public Column PrimaryKey{
+        public string PrimaryKeyName{
             get{
-                return Columns.OrderBy(c=>c.Index).FirstOrDefault();
+                return Columns.OrderBy(c=>c.Index).FirstOrDefault().Name;
             }
         }
     }

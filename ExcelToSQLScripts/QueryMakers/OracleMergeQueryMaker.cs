@@ -18,7 +18,7 @@ namespace ExcelToSQLScripts.QueryMakers
         {
             //StringBuilder stringBuilder = new StringBuilder();
             string tableName = record.Table.Name.ToUpperInvariant();
-            string primaryKeyColumnName = record.Table.PrimaryKey.Name.ToUpperInvariant();
+            string primaryKeyColumnName = record.Table.PrimaryKeyName.ToUpperInvariant();
             string columnNameValuePairs = string.Join(", ",
                                                       record.Table.Columns
                                                       .Select(c => $"{_valueRenderer.Render(record.Values.Single(v => v.Column.Name.ToUpperInvariant() == c.Name.ToUpperInvariant()))} {c.Name.ToUpperInvariant()}"));

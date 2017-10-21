@@ -28,7 +28,7 @@ namespace ExcelToSQLScripts.QueryMakers
                 }
             }
 
-            string keyName = record.Table.PrimaryKey.Name.ToUpperInvariant();
+            string keyName = record.Table.PrimaryKeyName.ToUpperInvariant();
 
             stringBuilder.Append($") KEY ({keyName}) VALUES (");
 

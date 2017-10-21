@@ -27,6 +27,16 @@ namespace ExcelToSQLScripts.Console
                 command.OnExecute(() =>GenerateScripts(inputOption, outputOption, nullRecordOption, workSheetsOption, replacementOption, command, "insert"));
             });
             
+            app.Command("update", command =>
+            {
+                command.Description = "Generates update scripts";
+                
+                CommandOption inputOption = HydrateCommandWithOptions(command, out CommandOption outputOption, out CommandOption nullRecordOption, 
+                    out CommandOption workSheetsOption, out CommandOption replacementOption);
+                
+                command.OnExecute(() =>GenerateScripts(inputOption, outputOption, nullRecordOption, workSheetsOption, replacementOption, command, "update"));
+            });
+            
             app.Command("merge", command =>
             {
                 command.Description = "Generates merge scripts";
