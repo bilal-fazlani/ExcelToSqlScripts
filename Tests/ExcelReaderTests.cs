@@ -44,11 +44,11 @@ namespace Tests
             tables.First().Columns.Should().HaveCount(3);
             tables.First().Records.Should().HaveCount(10);
         }
-        [Fact]
 
+        [Fact]
         public void CanReadExcelFileWithWorksheetFilter()
         {
-            ExcelReader excelReader = new ExcelReader(true, new[]{3});
+            ExcelReader excelReader = new ExcelReader(true, new[] {3});
 
             List<Table> tables = excelReader.Read("Sample.xlsx").ToList();
 

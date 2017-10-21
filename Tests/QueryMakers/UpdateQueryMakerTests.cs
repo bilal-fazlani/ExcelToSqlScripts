@@ -9,7 +9,8 @@ namespace Tests.QueryMakers
     public class UpdateQueryMakerTests
     {
         [Fact]
-        public void CanMakeQuery(){
+        public void CanMakeQuery()
+        {
             UpdateQueryMaker queryMaker = new UpdateQueryMaker(new ValueRenderer(new string[] { }));
             Record record = Utils.GetTable().Records[0];
             string query = queryMaker.GenerateQuery(record);

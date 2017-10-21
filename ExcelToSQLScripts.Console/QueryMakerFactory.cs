@@ -5,8 +5,10 @@ namespace ExcelToSQLScripts.Console
 {
     public static class QueryMakerFactory
     {
-        public static IQueryMaker Create(string mode, ValueRenderer valueRenderer){
-            switch(mode.ToLower()){
+        public static IQueryMaker Create(string mode, ValueRenderer valueRenderer)
+        {
+            switch (mode.ToLower())
+            {
                 case "insert":
                     return new InsertQueryMaker(valueRenderer);
                 case "update":

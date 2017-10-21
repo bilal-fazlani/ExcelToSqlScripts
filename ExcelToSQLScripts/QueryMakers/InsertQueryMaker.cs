@@ -34,7 +34,7 @@ namespace ExcelToSQLScripts.QueryMakers
             {
                 stringBuilder.Append(_valueRenderer.Render(value));
 
-                if (index < record.Values.Count-1) stringBuilder.Append(", ");
+                if (index < record.Values.Count - 1) stringBuilder.Append(", ");
 
                 index++;
             }

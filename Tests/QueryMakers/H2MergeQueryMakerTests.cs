@@ -9,7 +9,8 @@ namespace Tests.QueryMakers
     public class H2MergeQueryMakerTests
     {
         [Fact]
-        public void CanMakeQuery(){
+        public void CanMakeQuery()
+        {
             H2MergeQueryMaker queryMaker = new H2MergeQueryMaker(new ValueRenderer(new string[] { }));
             Record record = Utils.GetTable().Records[0];
             string query = queryMaker.GenerateQuery(record);

@@ -9,9 +9,9 @@
             Index = index;
         }
 
-        public string Name { get; set; }
+        public string Name { get; }
 
-        public DataType DataType { get; set; }
+        public DataType DataType { get; }
 
         public int Index { get; }
     }

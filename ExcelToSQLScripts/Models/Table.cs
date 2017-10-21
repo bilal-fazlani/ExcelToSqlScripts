@@ -16,10 +16,9 @@ namespace ExcelToSQLScripts.Models
 
         public List<Record> Records { get; set; } = new List<Record>();
 
-        public string PrimaryKeyName{
-            get{
-                return Columns.OrderBy(c=>c.Index).FirstOrDefault().Name;
-            }
+        public string PrimaryKeyName
+        {
+            get { return Columns.OrderBy(c => c.Index).FirstOrDefault().Name; }
         }
     }
 }

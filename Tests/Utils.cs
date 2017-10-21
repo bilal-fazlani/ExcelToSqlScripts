@@ -18,7 +18,7 @@ namespace Tests
             {
                 Record record = new Record(table)
                 {
-                    [0] = new Value(idColumn, $"{i+1}"),
+                    [0] = new Value(idColumn, $"{i + 1}"),
                     [1] = new Value(nameColumn, name)
                 };
 

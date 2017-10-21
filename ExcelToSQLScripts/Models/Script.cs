@@ -11,9 +11,9 @@ namespace ExcelToSQLScripts.Models
             Content = content;
         }
 
-        public string Name { get; set; }
+        public string Name { get; }
 
-        public Stream Content { get; set; }
+        public Stream Content { get; }
 
         public void Dispose()
         {

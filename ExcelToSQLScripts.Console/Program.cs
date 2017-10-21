@@ -21,32 +21,38 @@ namespace ExcelToSQLScripts.Console
             {
                 command.Description = "Generates insert scripts";
 
-                CommandOption inputOption = HydrateCommandWithOptions(command, out CommandOption outputOption, out CommandOption nullRecordOption, 
+                CommandOption inputOption = HydrateCommandWithOptions(command, out CommandOption outputOption,
+                    out CommandOption nullRecordOption,
                     out CommandOption workSheetsOption, out CommandOption replacementOption);
 
-                command.OnExecute(() =>GenerateScripts(inputOption, outputOption, nullRecordOption, workSheetsOption, replacementOption, command, "insert"));
+                command.OnExecute(() => GenerateScripts(inputOption, outputOption, nullRecordOption, workSheetsOption,
+                    replacementOption, command, "insert"));
             });
-            
+
             app.Command("update", command =>
             {
                 command.Description = "Generates update scripts";
-                
-                CommandOption inputOption = HydrateCommandWithOptions(command, out CommandOption outputOption, out CommandOption nullRecordOption, 
+
+                CommandOption inputOption = HydrateCommandWithOptions(command, out CommandOption outputOption,
+                    out CommandOption nullRecordOption,
                     out CommandOption workSheetsOption, out CommandOption replacementOption);
-                
-                command.OnExecute(() =>GenerateScripts(inputOption, outputOption, nullRecordOption, workSheetsOption, replacementOption, command, "update"));
+
+                command.OnExecute(() => GenerateScripts(inputOption, outputOption, nullRecordOption, workSheetsOption,
+                    replacementOption, command, "update"));
             });
-            
+
             app.Command("merge", command =>
             {
                 command.Description = "Generates merge scripts";
-                
-                CommandOption inputOption = HydrateCommandWithOptions(command, out CommandOption outputOption, out CommandOption nullRecordOption, 
+
+                CommandOption inputOption = HydrateCommandWithOptions(command, out CommandOption outputOption,
+                    out CommandOption nullRecordOption,
                     out CommandOption workSheetsOption, out CommandOption replacementOption);
-                
-                command.OnExecute(() =>GenerateScripts(inputOption, outputOption, nullRecordOption, workSheetsOption, replacementOption, command, "merge"));
+
+                command.OnExecute(() => GenerateScripts(inputOption, outputOption, nullRecordOption, workSheetsOption,
+                    replacementOption, command, "merge"));
             });
-            
+
             app.OnExecute(() =>
             {
                 app.ShowHelp();
@@ -66,7 +72,8 @@ namespace ExcelToSQLScripts.Console
             }
         }
 
-        private static CommandOption HydrateCommandWithOptions(CommandLineApplication command, out CommandOption outputOption,
+        private static CommandOption HydrateCommandWithOptions(CommandLineApplication command,
+            out CommandOption outputOption,
             out CommandOption nullRecordOption, out CommandOption workSheetsOption, out CommandOption replacementOption)
         {
             command.HelpOption("-? | -h | --help");

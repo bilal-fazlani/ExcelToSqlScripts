@@ -20,7 +20,7 @@ namespace ExcelToSQLScripts
 
         public string Render(Value value)
         {
-            if (string.IsNullOrEmpty(value.StringValue) 
+            if (string.IsNullOrEmpty(value.StringValue)
                 || string.Equals(value.StringValue, Constants.NULL, StringComparison.OrdinalIgnoreCase)
                 || _nullReplacements.Any(x => x.Equals(value.StringValue, StringComparison.OrdinalIgnoreCase)))
                 return Constants.NULL;

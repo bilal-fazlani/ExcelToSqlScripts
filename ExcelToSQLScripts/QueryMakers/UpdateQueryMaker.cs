@@ -17,10 +17,11 @@ namespace ExcelToSQLScripts.QueryMakers
         {
             var nameValuePair = string.Join(", ",
                 record.Values.Skip(1).Select(v => $"{v.Column.Name.ToUpperInvariant()} = {_valueRenderer.Render(v)}"));
-                
-            StringBuilder stringBuilder = new StringBuilder($"UPDATE {record.Table.Name.ToUpperInvariant()} SET {nameValuePair} " +
-                                                            $"WHERE {record.Table.PrimaryKeyName.ToUpperInvariant()} = " +
-                                                            $"{_valueRenderer.Render(record.PrimaryKey.Value)};\n");
+
+            StringBuilder stringBuilder = new StringBuilder(
+                $"UPDATE {record.Table.Name.ToUpperInvariant()} SET {nameValuePair} " +
+                $"WHERE {record.Table.PrimaryKeyName.ToUpperInvariant()} = " +
+                $"{_valueRenderer.Render(record.PrimaryKey.Value)};\n");
 
             return stringBuilder.ToString();
         }

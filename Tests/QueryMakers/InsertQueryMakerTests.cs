@@ -12,7 +12,7 @@ namespace Tests.QueryMakers
         [Fact]
         public void CanMakeQuery()
         {
-            InsertQueryMaker queryMaker = new InsertQueryMaker(new ValueRenderer(new string[]{ }));
+            InsertQueryMaker queryMaker = new InsertQueryMaker(new ValueRenderer(new string[] { }));
 
             Record record = Utils.GetTable().Records[0];
 
@@ -26,7 +26,7 @@ namespace Tests.QueryMakers
         {
             InsertQueryMaker queryMaker = new InsertQueryMaker(new ValueRenderer(new string[] { }));
 
-            Record record = Utils.GetTable(name:"sky's blue").Records[0];
+            Record record = Utils.GetTable(name: "sky's blue").Records[0];
 
             string query = queryMaker.GenerateQuery(record);
 
@@ -36,7 +36,7 @@ namespace Tests.QueryMakers
         [Fact]
         public void CanReplaceNullReplacementsWithNulls()
         {
-            InsertQueryMaker queryMaker = new InsertQueryMaker(new ValueRenderer(new [] { "n/a" }));
+            InsertQueryMaker queryMaker = new InsertQueryMaker(new ValueRenderer(new[] {"n/a"}));
 
             Record record = Utils.GetTable(name: "N/A").Records[0];
 

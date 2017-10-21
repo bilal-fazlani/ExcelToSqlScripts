@@ -25,8 +25,8 @@ namespace ExcelToSQLScripts
 
                 foreach (var worksheet in excel.Workbook.Worksheets)
                 {
-                    if (_worksheetsToRead == null || 
-                        _worksheetsToRead?.Length == 0 || 
+                    if (_worksheetsToRead == null ||
+                        _worksheetsToRead?.Length == 0 ||
                         (_worksheetsToRead != null && _worksheetsToRead.Contains(worksheet.Index)))
                     {
                         Table table = new Table(worksheet.Name);
@@ -60,7 +60,7 @@ namespace ExcelToSQLScripts
             string firstDataValue = worksheet.GetValue<string>(2, columnIndex);
             bool isnumber = IsNumber(firstDataValue);
 
-            if(isnumber)
+            if (isnumber)
                 return DataType.Number;
             return DataType.String;
         }
@@ -78,10 +78,11 @@ namespace ExcelToSQLScripts
 
                 foreach (var column in table.Columns)
                 {
-                    record[excelRowIndex - 2] = new Value(column, worksheet.GetValue<string>(excelRowIndex, column.Index));
+                    record[excelRowIndex - 2] =
+                        new Value(column, worksheet.GetValue<string>(excelRowIndex, column.Index));
                 }
 
-                if(_readEmptyRecords || !record.IsEmpty) table.Records.Add(record);
+                if (_readEmptyRecords || !record.IsEmpty) table.Records.Add(record);
             }
         }
     }

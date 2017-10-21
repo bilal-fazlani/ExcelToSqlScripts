@@ -20,19 +20,20 @@ namespace ExcelToSQLScripts.QueryMakers
             string tableName = record.Table.Name.ToUpperInvariant();
             string primaryKeyColumnName = record.Table.PrimaryKeyName.ToUpperInvariant();
             string columnNameValuePairs = string.Join(", ",
-                                                      record.Table.Columns
-                                                      .Select(c => $"{_valueRenderer.Render(record.Values.Single(v => v.Column.Name.ToUpperInvariant() == c.Name.ToUpperInvariant()))} {c.Name.ToUpperInvariant()}"));
+                record.Table.Columns
+                    .Select(c =>
+                        $"{_valueRenderer.Render(record.Values.Single(v => v.Column.Name.ToUpperInvariant() == c.Name.ToUpperInvariant()))} {c.Name.ToUpperInvariant()}"));
             string columnNamesForUpdate = string.Join(", ",
-                                                      record.Table.Columns.Skip(1)
-                                                      .Select(c => $"T.{c.Name.ToUpperInvariant()} = D.{c.Name.ToUpperInvariant()}"));
+                record.Table.Columns.Skip(1)
+                    .Select(c => $"T.{c.Name.ToUpperInvariant()} = D.{c.Name.ToUpperInvariant()}"));
 
             string allColumnNames = string.Join(", ",
-                                             record.Table.Columns.Select(c=> c.Name.ToUpperInvariant()));
+                record.Table.Columns.Select(c => c.Name.ToUpperInvariant()));
 
             string dPrefixedColumnNames = string.Join(", ",
-                                                      record.Table.Columns.Select(c => $"D.{c.Name.ToUpperInvariant()}"));
+                record.Table.Columns.Select(c => $"D.{c.Name.ToUpperInvariant()}"));
 
-             return $@"MERGE INTO {tableName} T
+            return $@"MERGE INTO {tableName} T
 USING (SELECT {columnNameValuePairs} FROM DUAL) D
 ON (T.{primaryKeyColumnName} = D.{primaryKeyColumnName})
 WHEN MATCHED THEN 
