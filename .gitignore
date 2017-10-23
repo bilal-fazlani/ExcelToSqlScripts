@@ -5,6 +5,7 @@
 .vs
 .idea
 *.userprefs
+.vscode
 bin
 obj
 
