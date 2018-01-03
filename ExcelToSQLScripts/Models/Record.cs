@@ -27,7 +27,7 @@ namespace ExcelToSQLScripts.Models
             get
             {
                 string name = Table.Columns.OrderBy(c => c.Index).First().Name;
-                Value value = Values.Single(x => x.Column.Name.ToUpperInvariant() == name);
+                Value value = Values.Single(x => x.Column.Name.ToUpperInvariant() == name.ToUpperInvariant());
                 return (name, value);
             }
         }
