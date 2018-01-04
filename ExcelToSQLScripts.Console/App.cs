@@ -28,9 +28,9 @@ namespace ExcelToSQLScripts.Console
         {
             _inputFile = inputFile;
             _outputDirectory = outputDirectory;
-            _worksheetsToRead = worksheetsToRead;
+            _worksheetsToRead = worksheetsToRead ?? new List<int>();
             _readEmptyRecords = readEmptyRecords;
-            _nullReplacements = nullReplacements;   
+            _nullReplacements = nullReplacements ?? new List<string>();   
         }
         
         [ApplicationMetadata(Description = "Generates insert scripts")]
