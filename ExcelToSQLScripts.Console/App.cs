@@ -108,6 +108,7 @@ namespace ExcelToSQLScripts.Console
             }
             catch (Exception ex)
             {
+                Error.WriteLine($"Error: {ex.GetType().Name}");
                 Error.WriteLine($"Error: {ex.Message}");
 #if DEBUG
                 Error.WriteLine(ex.StackTrace);

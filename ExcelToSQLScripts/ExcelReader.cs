@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using ExcelToSQLScripts.Models;
@@ -57,17 +58,31 @@ namespace ExcelToSQLScripts
 
         private DataType GetDataType(ExcelWorksheet worksheet, int columnIndex)
         {
+            object value = worksheet.GetValue<object>(2, columnIndex);
+            if (value is DateTime)
+            {
+                return DataType.DateTime;
+            }
+            
             string firstDataValue = worksheet.GetValue<string>(2, columnIndex);
+            
             bool isnumber = IsNumber(firstDataValue);
+            if (isnumber) return DataType.Number;
 
-            if (isnumber)
-                return DataType.Number;
+            bool isBool = IsBoolean(firstDataValue);
+            if (isBool) return DataType.Boolean;
+            
             return DataType.String;
         }
 
         private bool IsNumber(string value)
         {
             return double.TryParse(value, out double _);
+        }
+
+        private bool IsBoolean(string value)
+        {
+            return bool.TryParse(value, out bool _);
         }
 
         private void FillRecords(ExcelWorksheet worksheet, Table table)
@@ -78,8 +93,10 @@ namespace ExcelToSQLScripts
 
                 foreach (var column in table.Columns)
                 {
+                    object value = worksheet.GetValue<object>(excelRowIndex, column.Index);
+                    
                     record[excelRowIndex - 2] =
-                        new Value(column, worksheet.GetValue<string>(excelRowIndex, column.Index));
+                        new Value(column, worksheet.GetValue<string>(excelRowIndex, column.Index), value);
                 }
 
                 if (_readEmptyRecords || !record.IsEmpty) table.Records.Add(record);

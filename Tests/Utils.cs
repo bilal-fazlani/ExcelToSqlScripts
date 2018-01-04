@@ -18,8 +18,8 @@ namespace Tests
             {
                 Record record = new Record(table)
                 {
-                    [0] = new Value(idColumn, $"{i + 1}"),
-                    [1] = new Value(nameColumn, name)
+                    [0] = new Value(idColumn, $"{i + 1}", 1),
+                    [1] = new Value(nameColumn, name, name)
                 };
 
                 table.Records.Add(record);
