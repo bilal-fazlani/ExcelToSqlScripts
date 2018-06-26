@@ -5,6 +5,13 @@
     <ToolCommandName>excel2sql</ToolCommandName>
     <PackAsTool>true</PackAsTool>
     <LangVersion>7.2</LangVersion>
+    <Authors>Bilal Fazlani</Authors>
+    <NeutralLanguage>en-US</NeutralLanguage>
+    <Description>Convert excel files into sql scripts</Description>
+    <PackageTags>dotnet core; console; sql; excel; convert</PackageTags>
+    <PackageProjectUrl>https://github.com/bilal-fazlani/ExcelToSqlScripts</PackageProjectUrl>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <RepositoryUrl>https://github.com/bilal-fazlani/ExcelToSqlScripts</RepositoryUrl>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <RunWithWarnings>true</RunWithWarnings>
