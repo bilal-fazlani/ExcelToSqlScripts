@@ -5,9 +5,10 @@
 This small command line tool to help you convert data of excel files into insert statements in SQL syntax.
 
 1. Navigate to [dotnet core website](https://www.microsoft.com/net/core) and follow instructions to install dotnet core
-2. Download [lates binaries](https://github.com/bilal-fazlani/ExcelToSqlScripts/releases/latest) of this tool 
-3. Extract zip and navigate to extracted folder
-4. Run `dotnet ExcelToSQLScripts.Console.dll --help`
+2. `dotnet tool install -g ExcelToSQLScripts.Console`
+3. `excel2sql --help`
+
+Note: Ensure that you have `~/.dotnet/tools` path added in your $PATH variable
 
 
 # Generating SQL scripts
@@ -21,7 +22,7 @@ You can generate 3 types of scripts i.e. insert scipts, update scripts & merge s
 ### Insert scripts
 
 ```
-dotnet ExcelToSQLScripts.Console.dll insert -i <PATH_TO_XLSX_FILE> -o <OUTPUT_DIRECTORY_FOR_SQL_FILES>
+excel2sql insert -i <PATH_TO_XLSX_FILE> -o <OUTPUT_DIRECTORY_FOR_SQL_FILES>
 ```
 
 ##### Sample Output
@@ -34,7 +35,7 @@ INSERT INTO EMPLOYEES (ID, NAME, LOCATION) VALUES (2, 'Jason', 'US');
 ### Update scripts
 
 ```
-dotnet ExcelToSQLScripts.Console.dll update -i <PATH_TO_XLSX_FILE> -o <OUTPUT_DIRECTORY_FOR_SQL_FILES>
+excel2sql update -i <PATH_TO_XLSX_FILE> -o <OUTPUT_DIRECTORY_FOR_SQL_FILES>
 ```
 
 ##### Sample Output
@@ -47,7 +48,7 @@ UPDATE EMPLOYEES SET NAME = 'Jason', LOCATION = 'US' WHERE ID = 2;
 ### Merge scripts
 
 ```
-dotnet ExcelToSQLScripts.Console.dll merge -i <PATH_TO_XLSX_FILE> -o <OUTPUT_DIRECTORY_FOR_SQL_FILES>
+excel2sql merge -i <PATH_TO_XLSX_FILE> -o <OUTPUT_DIRECTORY_FOR_SQL_FILES>
 ```
 
 ##### Sample Output
