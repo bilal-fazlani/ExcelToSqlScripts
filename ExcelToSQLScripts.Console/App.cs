@@ -10,6 +10,8 @@ using static System.Console;
 
 namespace ExcelToSQLScripts.Console
 {
+    [ApplicationMetadata(Name = "excel2sql", Description = "Convert your excel files to sql scripts. For more information please visit \n" +
+                                                           "https://github.com/bilal-fazlani/ExcelToSqlScripts")]
     public class App
     {
         private readonly Options _options;
