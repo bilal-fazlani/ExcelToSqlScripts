@@ -10,7 +10,8 @@ namespace ExcelToSQLScripts.Console
             AppRunner<App> appRunner = new AppRunner<App>(new AppSettings
             {
                 Case = Case.CamelCase,
-                ShowArgumentDetails = false
+                EnableVersionOption = true,
+                HelpTextStyle = HelpTextStyle.Detailed
             });
 
             return appRunner.Run(args);

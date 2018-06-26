@@ -8,14 +8,9 @@ namespace ExcelToSQLScripts
     {
         private readonly string[] _nullReplacements;
 
-        public ValueRenderer()
-        {
-            _nullReplacements = new string[0];
-        }
-
         public ValueRenderer(string[] nullReplacements)
         {
-            _nullReplacements = nullReplacements;
+            _nullReplacements = nullReplacements ?? new string[0];;
         }
 
         public string Render(Value value)

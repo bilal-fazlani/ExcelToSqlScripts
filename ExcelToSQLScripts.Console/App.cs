@@ -12,25 +12,11 @@ namespace ExcelToSQLScripts.Console
 {
     public class App
     {
-        private readonly string _inputFile;
-        private readonly string _outputDirectory;
-        private readonly List<int> _worksheetsToRead;
-        private readonly bool _readEmptyRecords;
-        private readonly List<string> _nullReplacements;
+        private readonly Options _options;
 
-        public App([Option(Inherited = true, ShortName = "i", LongName = "inputFile", Description = "Full path of excel file. File must have .xlsx extension.")]string inputFile,
-            [Option(Inherited = true, ShortName = "o", LongName = "outputDirectory", Description = "Path the the directory where all sql files will be stored. " +
-                                                                                 "If one or more files exist with same name, they will be overriden. " +
-                                                                                 "If output directory doesn't exist, it will be created.")] string outputDirectory,
-            [Option(Inherited = true, ShortName = "w", LongName = "worksheet", Description = "Index of worksheets to be processed. Index beings from 1. This option can be used multiple times in one command.")] List<int> worksheetsToRead,
-            [Option(Inherited = true, ShortName = "e", LongName = "insertEmptyRecords", Description = "Will insert NULLs in all fields for empty rows in excel sheet")] bool readEmptyRecords,
-            [Option(Inherited = true, ShortName = "r", LongName = "replaceWithNULL", Description = "Replace the given text with null values in script. This option can be used multiple times in one command.")] List<string> nullReplacements)
+        public App(Options options)
         {
-            _inputFile = inputFile;
-            _outputDirectory = outputDirectory;
-            _worksheetsToRead = worksheetsToRead ?? new List<int>();
-            _readEmptyRecords = readEmptyRecords;
-            _nullReplacements = nullReplacements ?? new List<string>();   
+            _options = options;
         }
         
         [ApplicationMetadata(Description = "Generates insert scripts")]
@@ -55,28 +41,21 @@ namespace ExcelToSQLScripts.Console
         {
             try
             {
-                if (string.IsNullOrEmpty(_inputFile))
-                    throw new ArgumentNullException(nameof(_inputFile), "Please provide a path to excel file");
+                Directory.CreateDirectory(_options.OutputDirectory);
 
-                if (string.IsNullOrEmpty(_outputDirectory))
-                    throw new ArgumentNullException(nameof(_outputDirectory),
-                        "Please provide a directory for saving sql scripts");
+                ExcelReader excelReader = new ExcelReader(_options.ReadEmptyRecords, _options.WorksheetsToRead?.ToArray());
 
-                Directory.CreateDirectory(_outputDirectory);
-
-                ExcelReader excelReader = new ExcelReader(_readEmptyRecords, _worksheetsToRead?.ToArray());
-
-                ValueRenderer valueRenderer = new ValueRenderer(_nullReplacements?.ToArray());
+                ValueRenderer valueRenderer = new ValueRenderer(_options.NullReplacements?.ToArray());
             
                 IQueryMaker queryMaker = QueryMakerFactory.Create(mode, valueRenderer);
 
                 TableScriptGenerator tableScriptGenerator = new TableScriptGenerator(queryMaker);
 
-                IEnumerable<Table> tables = excelReader.Read(_inputFile);
+                IEnumerable<Table> tables = excelReader.Read(_options.InputFile);
 
                 foreach (Table table in tables)
                 {
-                    string filePath = Path.Combine(_outputDirectory, table.Name + ".sql");
+                    string filePath = Path.Combine(_options.OutputDirectory, table.Name + ".sql");
                     Write($"writing {filePath} ...");
 
                     if (table.Records.Any())
@@ -97,14 +76,6 @@ namespace ExcelToSQLScripts.Console
                 }
 
                 return 0;
-            }
-            catch (FileNotFoundException ex)
-            {
-                Error.WriteLine($"file not found:  {ex.FileName}");
-#if DEBUG
-                Error.WriteLine(ex.StackTrace);
-#endif 
-                return 1;
             }
             catch (Exception ex)
             {
