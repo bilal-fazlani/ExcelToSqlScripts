@@ -17,7 +17,7 @@ You can generate 3 types of scripts i.e. insert scipts, update scripts & merge s
 
 ##### Sample Input
 
-![Excel](/Readme/Sample_Input.png "Excel")
+![Excel](https://raw.githubusercontent.com/bilal-fazlani/ExcelToSqlScripts/master/Readme/Sample_Input.png)
 
 ### Insert scripts
 
