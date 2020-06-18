@@ -1,4 +1,4 @@
-[![Build status](https://ci.appveyor.com/api/projects/status/e732n85eeesdasy2?svg=true)](https://ci.appveyor.com/project/bilal-fazlani/exceltosqlscripts)
+![ActionsBuild](https://action-badges.now.sh/bilal-fazlani/ExcelToSqlScripts)
 
 # Setup instructions
 
