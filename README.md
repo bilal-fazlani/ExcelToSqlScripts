@@ -1,4 +1,4 @@
-![ActionsBuild](https://action-badges.now.sh/bilal-fazlani/ExcelToSqlScripts)
+![GitHub Workflow Status](https://img.shields.io/github/workflow/status/bilal-fazlani/ExcelToSqlScripts/.NET%20Core?style=for-the-badge)
 
 # Setup instructions
 
