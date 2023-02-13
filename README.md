@@ -1,4 +1,4 @@
-![GitHub Workflow Status](https://img.shields.io/github/workflow/status/bilal-fazlani/ExcelToSqlScripts/.NET%20Core?style=for-the-badge)
+[![Nuget](https://img.shields.io/nuget/v/ExcelToSqlScripts.Console?label=Latest%20Nuget%20Version&style=for-the-badge)](https://www.nuget.org/packages/ExcelToSQLScripts.Console)
 
 # Setup instructions
 
